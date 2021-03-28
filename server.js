@@ -2,10 +2,13 @@
 
 const PORT = process.env.PORT || 3000; // convert this to an envirment variable 
 
+
 // my application dependencies
 const express = require('express'); // node.js framework.
 const cors = require('cors'); // cross origin resources sharing
+
 const app = express(); //initalize express app
+
 app.use(cors()); // use cors
 
 
@@ -17,6 +20,7 @@ app.get('/location', handleLocation);
 app.get('/restaurants', handleRestaurant);
 
 app.get('/weather' ,handleWeather);
+
 
 // express will return 404 not found from its internal error handler
 // 500 for internal server error: from express handler
@@ -55,7 +59,6 @@ function handleRestaurant(request, response) {
     });
     response.send(restaurantResponse);
 }
-
 function handleWeather(request,response){
         const weather = require('./data/weather.json');
         const weatherData = weather.data;

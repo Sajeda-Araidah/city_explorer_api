@@ -1,4 +1,6 @@
+
 'use strict';
+
 
 let API = 'http://localhost:3000';
 
@@ -28,7 +30,9 @@ function fetchCityData(event) {
       showTitle(location);
       displayMap(location);
       getRestaurants(location);
+
       getWeather(location);
+
     })
     .catch(error => {
       console.error(error);
@@ -73,6 +77,7 @@ function getRestaurants(location) {
     });
 }
 
+
 function getWeather(location) {
 
   const ajaxSettings = {
@@ -96,6 +101,8 @@ function getWeather(location) {
       console.error(error);
     });
 }
+
+=======
 
 $('document').ready(function () {
   setEventListeners();
