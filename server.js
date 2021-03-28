@@ -1,6 +1,7 @@
 'use strict';
 
-const PORT = 3000; // convert this to an envirment variable 
+const PORT = process.env.PORT || 3000; // convert this to an envirment variable 
+
 
 // my application dependencies
 const express = require('express'); // node.js framework.
@@ -18,6 +19,7 @@ app.get('/location', handleLocation);
 
 app.get('/restaurants', handleRestaurant);
 
+app.get('/weather' ,handleWeather);
 
 
 // express will return 404 not found from its internal error handler
@@ -57,6 +59,19 @@ function handleRestaurant(request, response) {
     });
     response.send(restaurantResponse);
 }
+function handleWeather(request,response){
+        const weather = require('./data/weather.json');
+        const weatherData = weather.data;
+        let weatherArr = [];
+        weatherData.forEach(item => {
+          let obj = {
+            'weather': item.weather.description,
+            'time' : item.valid_date,
+          };
+          weatherArr.push(obj);
+        })
+        response.send(weatherArr);
+      }
 
 // run it on the port 
 app.listen(PORT, ()=> console.log(`App is running on Server on port: ${PORT}`))

@@ -1,4 +1,7 @@
 
+'use strict';
+
+
 let API = 'http://localhost:3000';
 
 function setEventListeners() {
@@ -27,6 +30,9 @@ function fetchCityData(event) {
       showTitle(location);
       displayMap(location);
       getRestaurants(location);
+
+      getWeather(location);
+
     })
     .catch(error => {
       console.error(error);
@@ -70,6 +76,33 @@ function getRestaurants(location) {
       console.error(error);
     });
 }
+
+
+function getWeather(location) {
+
+  const ajaxSettings = {
+    method: 'get',
+    dataType: 'json',
+    data: location
+  };
+
+  $.ajax(`${API}/weather`, ajaxSettings)
+    .then(result => {
+      let $container = $('#weather');
+      let $list = $('#weather-results');
+      let template = $('#weather-results-template').html();
+      result.forEach(entry => {
+        let markup = Mustache.render(template, entry);
+        $list.append(markup);
+      });
+      $container.show();
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+=======
 
 $('document').ready(function () {
   setEventListeners();
